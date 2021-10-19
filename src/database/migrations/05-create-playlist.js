@@ -1,35 +1,27 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('playlists', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.DataTypes.UUID,
         defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
-      fullName: {
+      name: {
         type: Sequelize.STRING,
       },
-      userName: {
-        type: Sequelize.STRING,
-        unique: true
-      },
-      talkMusicId: {
+      desc: {
         type: Sequelize.STRING,
       },
-      phoneNumber: {
-        type: Sequelize.BIGINT,
-        unique: true
-      },
-      email: {
-        type: Sequelize.STRING,
-      },
-      gender: {
-        type: Sequelize.STRING,
-      },
-      password: {
-        type: Sequelize.STRING,
+      author: {
+        type: Sequelize.UUID,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: {
+          model: 'users',
+          key: 'id',
+        },
       },
       avatar: {
         type: Sequelize.STRING,
@@ -37,17 +29,26 @@ module.exports = {
       avatarAwsDetails: {
         type: Sequelize.JSONB,
       },
-      bio: {
-        type: Sequelize.STRING,
-      },
-      country: {
-        type: Sequelize.STRING,
-      },
-      authType: {
-        type: Sequelize.STRING,
-      },
-      isBlocked: {
+      likes: {
         type: Sequelize.BOOLEAN,
+      },
+      favorites: {
+        type: Sequelize.BOOLEAN,
+      },
+      comment: {
+        type: Sequelize.UUID,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: {
+          model: 'comments',
+          key: 'id',
+        },
+      },
+      MusicId: {
+        type: Sequelize.BIGINT,
+      },
+      downloads: {
+        type: Sequelize.BIGINT,
       },
       createdAt: {
         allowNull: false,
@@ -60,6 +61,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable('playlists');
   },
 };

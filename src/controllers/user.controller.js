@@ -19,37 +19,30 @@ class userController {
 
   static async signup(req, res) {
     try {
-      const { firstName,
-          lastName,
-          phoneNumber,
+      const {
+          fullName,
           userName,
-          authType,
           email,
-          gender,
-          country
       } = req.body;
+      const authType = "user"
       const password = EncryptPassword(req.body.password);
       const talkMusicId = `TM${Math.floor(1000000 + Math.random() * 9000000)}`;
-      const existingUser = await UserServices.findExistingUser(email);
+      const existingUser = await UserServices.findExistingUser(email, userName);
       if (existingUser) {
-        return response.errorMessage(res, 'user with this email already exist', 409);
+        return response.errorMessage(res, 'user already exist', 409);
       }
         const token = GenerateToken({
             email,
             talkMusicId,
             userName,
-          authType,
+            authType,
         });
         const NewUser = {
-          firstName,
-          lastName,
+          fullName,
           userName,
           talkMusicId,
-          phoneNumber,
           email,
-          gender,
           password,
-          country,
           authType,
           isBlocked: false,
         };
@@ -74,6 +67,7 @@ class userController {
       );
 
     } catch (e) {
+        console.log(e)
       return response.errorMessage(res, e.message, 400);
     }
   }
