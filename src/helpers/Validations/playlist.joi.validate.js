@@ -17,9 +17,12 @@ const validation = (req, res, schema, next) => {
 };
 
 export default class InputValidation {
-  static validateMedia(req, res, next) {
+  static validatePlaylist(req, res, next) {
     const schema = Joi.object({
-      photo: Joi.string(),
+      name: Joi.string(),
+      desc: Joi.string(),
+      category: Joi.string(),
+      authorId: Joi.string()
     });
     validation(req, res, schema, next);
   }

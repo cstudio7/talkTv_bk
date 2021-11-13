@@ -17,6 +17,18 @@ module.exports = {
           key: 'id',
         },
       },
+      playlistId: {
+        allowNull: false,
+        type: Sequelize.DataTypes.UUID,
+      },
+      artistId: {
+        allowNull: false,
+        type: Sequelize.DataTypes.UUID,
+      },
+      song: {
+        allowNull: false,
+        type: Sequelize.DataTypes.UUID,
+      },
       TMSId: {
         allowNull: false,
         type: Sequelize.BIGINT,

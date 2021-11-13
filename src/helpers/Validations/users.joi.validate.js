@@ -23,7 +23,7 @@ export default class InputValidation {
     const schema = Joi.object({
       fullName: Joi.string().empty(''),
       password: Joi.string()
-          .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})/)
+          .regex(/^(?=.*[a-z])(?=.*[0-9])(?=.{6,})/)
           .message(
               'password field should contain at least 6 characters, at least 1 lowercase, 1 uppercase and 1 number.'
           )
@@ -50,7 +50,7 @@ export default class InputValidation {
         .email({ minDomainSegments: 2 })
         .message('email field should be a valid email address. e.g: johndoe@gmail.com.'),
       password: Joi.string()
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.,])(?=.{8,})/)
+          .regex(/^(?=.*[a-z])(?=.*[0-9])(?=.{6,})/)
         .message('Invalid Login detail')
         .required(),
     });

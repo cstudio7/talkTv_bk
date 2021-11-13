@@ -4,8 +4,9 @@ module.exports = (sequelize, DataTypes) => {
       'comment',
       {
         userId: { type: DataTypes.UUID, allowNull: true },
+        category: { type: DataTypes.STRING, allowNull: true },
         TMSId: { type: DataTypes.BIGINT, allowNull: false },
-        comment: DataTypes.TEXT
+        comment: { type: DataTypes.TEXT, allowNull: false }
       },
       {}
   );

@@ -14,7 +14,10 @@ module.exports = {
       desc: {
         type: Sequelize.STRING,
       },
-      author: {
+      category: {
+        type: Sequelize.STRING,
+      },
+      authorId: {
         type: Sequelize.UUID,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
@@ -29,11 +32,23 @@ module.exports = {
       avatarAwsDetails: {
         type: Sequelize.JSONB,
       },
-      likes: {
-        type: Sequelize.BOOLEAN,
-      },
+      // likes: {
+      //   type: Sequelize.UUID,
+      //   onUpdate: 'CASCADE',
+      //   onDelete: 'CASCADE',
+      //   references: {
+      //     model: 'likes',
+      //     key: 'id',
+      //   },
+      // },
       favorites: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.UUID,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: {
+          model: 'favorites',
+          key: 'id',
+        },
       },
       comment: {
         type: Sequelize.UUID,
@@ -44,11 +59,14 @@ module.exports = {
           key: 'id',
         },
       },
-      MusicId: {
-        type: Sequelize.BIGINT,
-      },
-      downloads: {
-        type: Sequelize.BIGINT,
+      download: {
+        type: Sequelize.UUID,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: {
+          model: 'downloads',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,

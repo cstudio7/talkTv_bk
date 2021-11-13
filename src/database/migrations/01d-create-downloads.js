@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('favorites', {
+    return queryInterface.createTable('downloads', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -9,8 +9,7 @@ module.exports = {
         defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
       userId: {
-        allowNull: false,
-        type: Sequelize.DataTypes.UUID,
+        type: Sequelize.UUID,
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
         references: {
@@ -18,11 +17,26 @@ module.exports = {
           key: 'id',
         },
       },
+      playlistId: {
+        allowNull: false,
+        type: Sequelize.DataTypes.UUID,
+      },
+      artistId: {
+        allowNull: false,
+        type: Sequelize.DataTypes.UUID,
+      },
+      songId: {
+        allowNull: false,
+        type: Sequelize.DataTypes.UUID,
+      },
       TMSId: {
         allowNull: false,
         type: Sequelize.BIGINT,
       },
-      favorite: {
+      comment: {
+        type: Sequelize.TEXT,
+      },
+      download: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
       },
@@ -37,6 +51,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('favorites');
+    return queryInterface.dropTable('downloads');
   },
 };

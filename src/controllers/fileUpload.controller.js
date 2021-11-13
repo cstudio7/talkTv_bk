@@ -1,5 +1,6 @@
 import response from '../helpers/response.helper';
 import s3delete from '../middlewares/fileUpload/delete';
+import db from '../database/models';
 
 /**
  * Class for users related operations such Sign UP, Sign In and others
@@ -13,11 +14,31 @@ class fileUploadController {
    */
   static async uploadAvatar(req, res) {
     try {
+
+      const mapEntityToModel = (entity) => {
+        switch (entity) {
+          case 'user':
+            return db.user;
+            break;
+          case 'song':
+            return db.song;
+            break;
+          case 'playlist':
+            return db.playlist;
+            break;
+          default:
+            break;
+        }
+      };
+
+      const { id, modal } = req.query;
+      const user = await db.user.findOne({ where: { id }})
+
       const data = {
         avatar: req.file.location,
         avatarAwsDetails: req.file,
       };
-      const user = req.user;
+
       if (user.avatar && user.avatarAwsDetails) {
         const photoData = {
           Bucket: process.env.AWS_BUCKET_NAME,

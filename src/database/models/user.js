@@ -21,6 +21,16 @@ module.exports = (sequelize, DataTypes) => {
   );
   user.associate = (models) => {
     // association goes here
+      user.hasMany(models.playlist, {
+          foreignKey: 'authorId',
+          as: 'author',
+          onDelete: 'CASCADE',
+      });
+      user.hasMany(models.favorite, {
+          foreignKey: 'artisanId',
+          as: 'favorite',
+          onDelete: 'CASCADE',
+      });
   };
   return user;
 };

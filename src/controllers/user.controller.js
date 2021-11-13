@@ -25,6 +25,7 @@ class userController {
           email,
       } = req.body;
       const authType = "user"
+
       const password = EncryptPassword(req.body.password);
       const talkMusicId = `TM${Math.floor(1000000 + Math.random() * 9000000)}`;
       const existingUser = await UserServices.findExistingUser(email, userName);
@@ -47,14 +48,15 @@ class userController {
           isBlocked: false,
         };
 
-         const verificationEmail = generateEmail(NewUser);
-        await sendMail(
-          process.env.SENDGRID_API_KEY,
-          email,
-          process.env.SENDER_EMAIL,
-          'Talk Music',
-          verificationEmail
-        );
+
+        //  const verificationEmail = generateEmail(NewUser);
+        // await sendMail(
+        //   process.env.SENDGRID_API_KEY,
+        //   email,
+        //   process.env.SENDER_EMAIL,
+        //   'Talk Music',
+        //   verificationEmail
+        // );
         const data = {
           token,
         };

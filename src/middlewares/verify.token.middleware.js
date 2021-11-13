@@ -29,6 +29,7 @@ class verifyToken {
   }
 
   static paramTokenUsers(req, res, next) {
+
     if (req.headers.authorization === undefined) {
       return response.errorMessage(res, 'Unauthorized Access', 401);
     }
@@ -98,25 +99,6 @@ class verifyToken {
     const token = req.headers.authorization.split(' ')[1];
     verifyAllTokens(req, res, next, token);
   }
-
-  // verifyAdminTokens function is notdefined anywhere in the codebase
-  // /**
-  //  * check request headers
-  //  * @param {Object} req user request
-  //  * @param {Object} res user response
-  //  * @param {Object} next continue
-  //  * @returns {Object} return user message
-  //  */
-  // static headerTokens(req, res, next) {
-  //   if (req.headers.authorization === undefined) {
-  //     return response.errorMessage(res, 'Please Set The Authorization Header!', 401);
-  //   }
-  //   if (!/(?=^[Bb]earer)/.test(req.headers.authorization)) {
-  //     return response.errorMessage(res, '"Bearer" not found Invalid token!', 401);
-  //   }
-  //   const token = req.headers.authorization.split(' ')[1];
-  //   verifyAdminTokens(req, res, next, token);
-  // }
 
   /**
    * check request headers

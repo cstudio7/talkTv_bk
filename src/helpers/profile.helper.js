@@ -15,8 +15,7 @@ class ProfileHelper {
   static chooseProfileData(userData) {
     const {
       id,
-      firstName,
-      lastName, userName,
+      fullName, userName,
       avatar, talkMusicId,
       phoneNumber, email,
       gender, bio,
@@ -24,8 +23,7 @@ class ProfileHelper {
     } = userData;
     return {
       id,
-      firstName,
-      lastName, userName,
+      fullName, userName,
       avatar, talkMusicId,
       phoneNumber, email,
       gender, bio,
