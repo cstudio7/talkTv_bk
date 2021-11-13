@@ -17,7 +17,7 @@ const checkEmailpassword = async (req, res) => {
   const token = GenerateToken({ email: req.body.email, id: user.id, authType: user.authType, firstName: user.firstName, lastName: user.lastName });
   return response.successMessage(
       res,
-      'user has logged in successfully',
+      'Logged in successfully',
       200,
       token
   );

@@ -3,13 +3,12 @@ module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define(
     'user',
     {
-      firstName: { type: DataTypes.STRING, allowNull: true },
-      lastName: { type: DataTypes.STRING, allowNull: true },
+      fullName: { type: DataTypes.STRING, allowNull: true },
       userName: { type: DataTypes.STRING, allowNull: true },
       avatar: DataTypes.STRING,
       avatarAwsDetails: DataTypes.JSONB,
       talkMusicId: { type: DataTypes.STRING, allowNull: false },
-      phoneNumber: { type: DataTypes.BIGINT, allowNull: false, unique: true },
+      phoneNumber: { type: DataTypes.BIGINT, unique: true },
       email: { type: DataTypes.STRING, allowNull: false },
       gender: { type: DataTypes.STRING, allowNull: true },
       password: { type: DataTypes.STRING, allowNull: true },
@@ -22,6 +21,16 @@ module.exports = (sequelize, DataTypes) => {
   );
   user.associate = (models) => {
     // association goes here
+      user.hasMany(models.playlist, {
+          foreignKey: 'authorId',
+          as: 'author',
+          onDelete: 'CASCADE',
+      });
+      user.hasMany(models.favorite, {
+          foreignKey: 'artisanId',
+          as: 'favorite',
+          onDelete: 'CASCADE',
+      });
   };
   return user;
 };

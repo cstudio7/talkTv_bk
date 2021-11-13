@@ -1,34 +1,17 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('artists', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.DataTypes.UUID,
         defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
-      fullName: {
+      name: {
         type: Sequelize.STRING,
       },
-      userName: {
-        type: Sequelize.STRING,
-        unique: true
-      },
-      talkMusicId: {
-        type: Sequelize.STRING,
-      },
-      phoneNumber: {
-        type: Sequelize.BIGINT,
-        unique: true
-      },
-      email: {
-        type: Sequelize.STRING,
-      },
-      gender: {
-        type: Sequelize.STRING,
-      },
-      password: {
+      desc: {
         type: Sequelize.STRING,
       },
       avatar: {
@@ -37,17 +20,38 @@ module.exports = {
       avatarAwsDetails: {
         type: Sequelize.JSONB,
       },
-      bio: {
+      category: {
         type: Sequelize.STRING,
       },
-      country: {
+      gender: {
         type: Sequelize.STRING,
       },
-      authType: {
-        type: Sequelize.STRING,
+      // likes: {
+      //   type: Sequelize.UUID,
+      //   onUpdate: 'CASCADE',
+      //   onDelete: 'CASCADE',
+      //   references: {
+      //     model: 'likes',
+      //     key: 'id',
+      //   },
+      // },
+      favorites: {
+        type: Sequelize.UUID,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: {
+          model: 'favorites',
+          key: 'id',
+        },
       },
-      isBlocked: {
-        type: Sequelize.BOOLEAN,
+      download: {
+        type: Sequelize.UUID,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: {
+          model: 'downloads',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
@@ -60,6 +64,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable('artists');
   },
 };
